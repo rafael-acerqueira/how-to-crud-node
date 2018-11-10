@@ -44,6 +44,24 @@ app.get('/categorias/excluir/:id', async (req, res) => {
   res.redirect('/categorias')
 })
 
+app.get('/categorias/editar/:id', async (req, res) => {
+  const content = await axios.get(`https://como-fazer-9e94a.firebaseio.com/categorias/${req.params.id}.json`)
+  res.render('categorias/editar', {
+     content: {
+       id: req.params.id,
+       ...content.data
+     }
+    }
+  )
+})
+
+app.post('/categorias/editar/:id', async (req, res) => {
+  await axios.put(`https://como-fazer-9e94a.firebaseio.com/categorias/${req.params.id}.json`, {
+    categoria: req.body.categoria
+  })
+  res.redirect('/categorias')
+})
+
 app.listen(port, err => {
   if(err){
     console.log('erro')
