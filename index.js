@@ -9,8 +9,7 @@ app.use(bodyParser.urlencoded())
 app.use('/categorias', categorias)
 
 app.get('/', async (req, res) => {
-  const content = await axios.get('https://como-fazer-9e94a.firebaseio.com/teste.json')
-  res.render('index', { content: content.data })
+  res.render('index')
 })
 
 app.listen(port, err => {
