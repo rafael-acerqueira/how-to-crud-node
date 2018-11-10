@@ -1,40 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const api = require('../api')
+const controller = require('../controllers/categorias')
 
-router.get('/nova', (req, res) => {
-  res.render('categorias/nova')
-})
+router.get('/nova', controller.novaForm)
 
-router.post('/nova', async (req, res) => {
-  await api.create('categorias', {
-    categoria: req.body.categoria
-  })
-  res.redirect('/categorias')
-})
+router.post('/nova', controller.nova)
 
-router.get('', async (req, res) => {
-  const categorias = await api.list('categorias')
-  res.render('categorias/index', { categorias })
-})
+router.get('/', controller.list)
 
-router.get('/excluir/:id', async (req, res) => {
-  await api.apagar('categorias', req.params.id)
-  res.redirect('/categorias')
-})
+router.get('/excluir/:id', controller.excluir)
 
-router.get('/editar/:id', async (req, res) => {
-    const content = await api.get('categorias', req.params.id )
-    res.render('categorias/editar', {
-      content
-    })
-})
+router.get('/editar/:id', controller.editarForm)
 
-router.post('/editar/:id', async (req, res) => {
-  await api.update('categorias', req.params.id, {
-    categoria: req.body.categoria
-  })
-  res.redirect('/categorias')
-})
+router.post('/editar/:id', controller.editar)
 
 module.exports = router
