@@ -19,7 +19,9 @@ app.get('/categorias/nova', (req, res) => {
 })
 
 app.post('/categorias/nova', async (req, res) => {
-  await axios.post('https://como-fazer-9e94a.firebaseio.com/categorias.json', req.body)
+  await api.create('categorias', {
+    categoria: req.body.categoria
+  })
   res.redirect('/categorias')
 })
 

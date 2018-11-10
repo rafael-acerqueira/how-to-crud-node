@@ -36,9 +36,15 @@ const update = async (key, id, data) => {
   return true
 }
 
+const create = async(key, data) => {
+  await axios.post(`${baseURL}/${key}.json`, data)
+  return true
+}
+
 module.exports = {
   list,
   apagar,
   get,
-  update
+  update,
+  create
 }
