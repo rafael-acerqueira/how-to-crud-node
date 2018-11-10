@@ -21,6 +21,14 @@ app.post('/categorias/nova', async (req, res) => {
   res.render('categorias/nova')
 })
 
+app.get('/categorias', async (req, res) => {
+  const content = await axios.get('https://como-fazer-9e94a.firebaseio.com/categorias.json')
+  const categorias = Object
+                        .keys(content.data)
+                        .map( key => content.data[key] )
+  res.render('categorias/index', { categorias })
+})
+
 app.listen(port, err => {
   if(err){
     console.log('erro')
