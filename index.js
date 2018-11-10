@@ -29,7 +29,7 @@ app.get('/categorias', async (req, res) => {
 })
 
 app.get('/categorias/excluir/:id', async (req, res) => {
-  await axios.delete(`https://como-fazer-9e94a.firebaseio.com/categorias/${req.params.id}.json`)
+  await api.apagar('categorias', req.params.id)
   res.redirect('/categorias')
 })
 

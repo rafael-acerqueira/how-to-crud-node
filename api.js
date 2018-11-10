@@ -18,6 +18,12 @@ const list = async (key) => {
   return []
 }
 
+const apagar = async (key, id) => {
+  await axios.delete(`https://como-fazer-9e94a.firebaseio.com/${key}/${id}.json`)
+  return true
+}
+
 module.exports = {
-  list
+  list,
+  apagar
 }
