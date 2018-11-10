@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
-const axios = require('axios')
 const bodyParser = require('body-parser')
+
+const api = require('./api')
+
 const port = process.env.PORT || 3000
 
 app.set('view engine', 'ejs')
@@ -22,21 +24,8 @@ app.post('/categorias/nova', async (req, res) => {
 })
 
 app.get('/categorias', async (req, res) => {
-  const content = await axios.get('https://como-fazer-9e94a.firebaseio.com/categorias.json')
-  if(content.data){
-    const categorias = Object
-                          .keys(content.data)
-                          .map( key => {
-                            return {
-                              id: key,
-                              ...content.data[key]
-                            }
-                          })
-    res.render('categorias/index', { categorias })
-  }else{
-    res.render('categorias/index', { categorias: [] })
-  }
-
+  const categorias = await api.list('categorias')
+  res.render('categorias/index', { categorias })
 })
 
 app.get('/categorias/excluir/:id', async (req, res) => {
